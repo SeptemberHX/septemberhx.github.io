@@ -6,7 +6,7 @@
 !.travis.yml
 
 # bundler cache
-_site
+#_site
 vendor
 
 # rubygem
@@ -15,3 +15,5 @@ vendor
 # npm dependencies
 node_modules
 package-lock.json
+
+_posts
