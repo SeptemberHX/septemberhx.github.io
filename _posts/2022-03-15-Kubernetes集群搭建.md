@@ -1,5 +1,5 @@
 ---
-title: Kubernetes集群搭建
+title: Kubernetes 集群搭建
 date: 2022-03-15 17:57:19 +0800
 toc: true
 comments: true
@@ -162,6 +162,20 @@ Issue 链接：[github issue](https://github.com/kubernetes/kops/issues/4049)
 `kubectl port-forward -n weave "$(kubectl get -n weave pod --selector=weave-scope-component=app -o jsonpath='{.items..metadata.name}')" 4040`
 
 `ssh -N -L 0.0.0.0:4041:localhost:4040 root@IP -p 22`
+
+### 运行 master 节点运行 pod
+
+```shell
+kubectl describe node t0 | grep Taints  # 查看 taints
+kubectl taint node t0 node-role.kubernetes.io/master:NoSchedule-  # 取消 NoSchedule
+```
+
+### 给节点打标签
+
+```shell
+kubectl label nodes t0 node=node0  # 给节点 t0 打上标签：node=node0
+kubectl get nodes --show-labels    # 查看节点标签
+```
 
 ### 清理 cni：
 
