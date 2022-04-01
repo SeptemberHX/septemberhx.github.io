@@ -130,6 +130,9 @@ public Q_SLOTS: // METHODS
 {: .prompt-tip}
 
 ### 插件配置文件
+
+新建文件 `/usr/lib/x86_64-linux-gnu/dde-grand-search-daemon/plugins/searcher/com.deepin.dde-grand-search.dde-top-panel-setting.conf`：
+
 ```conf
 [Grand Search]
 Name=com.deepin.dde-grand-search.dde-top-panel-setting
@@ -142,6 +145,9 @@ InterfaceVersion=1.0
 {: file='com.deepin.dde-grand-search.dde-top-panel-setting.conf'}
 
 ### `DBus` 接口实现
+
+> `DBus` 注册等基础部分不包含在下面
+{: .prompt-warning}
 
 ```cpp
 QString DBusTopPanelService::Search(const QString json) {
