@@ -21,7 +21,7 @@ image:
 
 按照软件设计的基本逻辑推断，再结合 `dde-dock` 中的插件机制，可以推测得到 `dde-grand-search` 有很大概率也是通过插件的方式进行后续功能增加的，尤其是目前 `dde-grand-search` 的搜索项目太少，参考 MacOS 的聚焦功能，能够想象到的后续拓展功能就包括：字典、剪贴板、邮件以及其他各种 Deepin 全家桶功能的集成。
 
-因此只需要确定插件目录下有哪些以及存在的插件，然后去看对应部分的源码即可。插件目录在没有官方文档的情况下，最简单可靠的方法就是阅读源码，不过首先需要确保 `/etc/apt/sources.list` 中 `deb-src` 一行没有被注释掉：
+因此只需要确定插件目录下有哪些以及存在的插件，然后去看对应部分的源码即可。插件目录在没有官方文档的情况下，最简单可靠的方法就是阅读源码，不过首先需要确保 `/etc/apt/sources.list`{: .filepath} 中 `deb-src` 一行没有被注释掉：
 
 ```shell
 apt source dde-grand-search
@@ -29,7 +29,7 @@ apt source dde-grand-search
 
 解压代码，Clion 打开项目目录，通过文件名判断插件相关的主要类为 `pluginmanager.cpp` 中的 `PluginManagerPrivate`，其中的 `defaultPath` 即为插件路径。
 
-然后利用 Clion 的全局搜索功能，可以查到路径定义在 `CMakeLists.txt` 中。最终得到路径：`/usr/lib/x86_64-linux-gnu/dde-grand-search-daemon/plugins/searcher`，同时发现已存在一个插件文件：`com.deepin.dde-grand-search.dde-control-center-setting.conf`，名称可知是设置中心的插件，内容如下：
+然后利用 Clion 的全局搜索功能，可以查到路径定义在 `CMakeLists.txt` 中。最终得到路径：`/usr/lib/x86_64-linux-gnu/dde-grand-search-daemon/plugins/searcher`{: .filepath}，同时发现已存在一个插件文件：`com.deepin.dde-grand-search.dde-control-center-setting.conf`，名称可知是设置中心的插件，内容如下：
 
 ```conf
 [Grand Search]
@@ -51,9 +51,9 @@ InterfaceVersion=1.0
 2. 实现配置文件中的接口
 
 但是需要实现哪些具体接口，在没有官方文档的情况下，直接参照 `dde-control-center` 的源码，在官方 github 仓库里简单的搜索 `GrandSearch` 关键词，即可快速定位到相关内容，主要关键文件如下：
-1. `src/frame/dbuscontrolcenterservice.h`
-2. `src/frame/dbuscontrolcenterservice.cpp`
-3. `src/frame/window/mainwindow.cpp`
+1. `src/frame/dbuscontrolcenterservice.h`{: .filepath}
+2. `src/frame/dbuscontrolcenterservice.cpp`{: .filepath}
+3. `src/frame/window/mainwindow.cpp`{: .filepath}
 
 阅读源码后，可以发现几个关键的 `DBus` 接口：
 ```c++
@@ -131,7 +131,7 @@ public Q_SLOTS: // METHODS
 
 ### 插件配置文件
 
-新建文件 `/usr/lib/x86_64-linux-gnu/dde-grand-search-daemon/plugins/searcher/com.deepin.dde-grand-search.dde-top-panel-setting.conf`：
+新建文件 `/usr/lib/x86_64-linux-gnu/dde-grand-search-daemon/plugins/searcher/com.deepin.dde-grand-search.dde-top-panel-setting.conf`{: .filepath}：
 
 ```conf
 [Grand Search]
