@@ -89,20 +89,20 @@ avatar: /assets/img/avator.png
 toc: true
 
 comments:
-  active: disqus        # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
+  active: giscus        # The global switch for posts comments, e.g., 'disqus'.  Keep it empty means disable
   # The active options are as follows:
   disqus:
-    shortname: septemberhx-github-io   # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
+    shortname: # fill with the Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
   # utterances settings › https://utteranc.es/
   utterances:
     repo:         # <gh-username>/<repo>
     issue_term:   # < url | pathname | title | ...>
   # Giscus options › https://giscus.app
   giscus:
-    repo:             # <gh-username>/<repo>
-    repo_id:
-    category:
-    category_id:
+    repo:  SeptemberHX/septemberhx.github.io           # <gh-username>/<repo>
+    repo_id: R_kgDOG5Oxnw
+    category: Announcements
+    category_id: DIC_kwDOG5Oxn84COcG0
     mapping:          # optional, default to 'pathname'
     input_position:   # optional, default to 'bottom'
     lang:             # optional, default to the value of `site.lang`
