@@ -17,8 +17,9 @@ comments: true
 ## 准备
 
 一台具备公网 IP 的服务器：Softether 服务端需要能被所有客户端访问到
-	* CPU、RAM 配置无需太高
-	* 网络环境要好，和 VPN 的使用体验直接挂钩
+
+* CPU、RAM 配置无需太高
+* 网络环境要好，和 VPN 的使用体验直接挂钩
 
 ## Softether 服务端
 
