@@ -9,7 +9,7 @@ tags:
 categories: [手册, Linux]
 ---
 
-## Kubernetes
+## <font color=DodgerBlue>Kubernetes</font>
 
 ```shell
 # 0. Ubuntu 20.04 一键安装 kubectl kubeadm etcd 等 kubernetes 相关内容
@@ -30,7 +30,7 @@ kubectl get nodes --show-labels    # 查看节点标签
 kubeadm token create --print-join-command
 ```
 
-## Docker
+## <font color=DodgerBlue>Docker</font>
 
 ```shell
 # 1. 给用户 user 操作 docker 权限
@@ -46,14 +46,14 @@ docker image list | grep service | awk -F ' ' '{print $1}' | xargs docker image 
 docker volume prune
 ```
 
-## Nvidia
+## <font color=DodgerBlue>Nvidia</font>
 
 ```shell
 # 1. 列出所有正在使用 NVIDIA GPU 的进程信息
 nvidia-smi | grep -A 100 "PID" | tail -n +3 | sed '$d' | grep -v 'No' | grep -v 'N/A' | awk -F ' ' '{print $3}' | xargs --no-run-if-empty ps -ux
 ```
 
-## 日志
+## <font color=DodgerBlue>日志</font>
 
 ```shell
 # 1. 获取指定 service 的日志

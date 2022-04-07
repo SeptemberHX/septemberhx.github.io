@@ -14,27 +14,29 @@ comments: true
 > 如果只是个人使用，仅想访问内网对应服务且不需要权限管理等额外功能，那么推荐使用 frp、zerotier 等工具，配置简易，使用简单，容易上手。
 {: .prompt-info }
 
-## 准备
+## <font color=DodgerBlue>准备</font>
 
 一台具备公网 IP 的服务器：Softether 服务端需要能被所有客户端访问到
 
 * CPU、RAM 配置无需太高
 * 网络环境要好，和 VPN 的使用体验直接挂钩
 
-## Softether 服务端
+## <font color=DodgerBlue>Softether 服务端</font>
 
-### 安装
+### <font color=DodgerBlue>安装</font>
 
 1. 现有很多较为完善的教程，直接参考即可。例如：[https://www.mivm.cn/softether-vpn-lan/](https://www.mivm.cn/softether-vpn-lan/)
 2. 官方有图形客户端，无需全程命令行
 
-### 重点功能
+### <font color=DodgerBlue>重点功能</font>
 
 1. VPN 流量等权限管控：通过为不同用户建立不同用户组，并限制不同用户组使用 VPN 的上行、下行等实现权限控制
+2. 用户行为监控：有丰富的日志功能记录流量使用情况，并可以记录每个用户具体的数据量、活动连接、来源 IP 等等
+3. 安全：支持多账号，支持白名单、黑名单等
 
-## Softether 客户端连接
+## <font color=DodgerBlue>Softether 客户端连接</font>
 
-### 通用方法
+### <font color=DodgerBlue>通用方法</font>
 
 使用系统自带 VPN 功能，选择 `L2TP/IPsec` 类型：
 
@@ -46,7 +48,7 @@ comments: true
 * MacOS：系统设置 -> 网络 -> 新建 -> VPN
 * 移动设备：系统设置 -> 搜索 VPN
 
-### Windows
+### <font color=DodgerBlue>Windows</font>
 
 > 推荐直接使用官方提供的<font color=DodgerBlue>图形客户端</font>
 {: .prompt-info }
@@ -55,11 +57,11 @@ comments: true
 > ![适配器设置](/assets/img/SoftetherVPN/适配器设置.png)
 {: .prompt-warning}
 
-### Linux
+### <font color=DodgerBlue>Linux</font>
 
-#### 命令行
+#### <font color=DodgerBlue>命令行</font>
 
-##### 连接
+##### <font color=DodgerBlue>连接</font>
 
 1. 官网下载 Linux 客户端（似乎只有源码包）
 2. 解压后，进入 ./vpnclient 目录，执行 `make`，确保执行完成后，生成 `vpnclient` 及 `vpncmd` 两个可执行文件
@@ -75,7 +77,7 @@ comments: true
     2. `sudo ifconfig 虚拟网卡名 10.1.1.XXX netmask 255.0.0.0`  <- 注意修改 IP 地址
     3. `sudo dhclient 虚拟网卡名` <- 可能要执行几十秒甚至一分钟，等着就好
 
-##### 自启动
+##### <font color=DodgerBlue>自启动</font>
 
 > 注意修改自启脚本里的连接名：CONNECTION、虚拟网卡名 及 固定 IP 地址！
 {: .prompt-warning }
@@ -131,11 +133,11 @@ comments: true
 4. `sudo systemctl enable vpnclient.service`
 5. `sudo systemctl start vpnclient.service`
 
-#### GUI
+#### <font color=DodgerBlue>GUI</font>
 
 参考“通用方法”。
 
-### 固定 IP 设置
+### <font color=DodgerBlue>固定 IP 设置</font>
 
 1. Windows：在网络适配器中修改 IP4 地址
 2. Linux：命令行修改对应适配器的 IP4 地址

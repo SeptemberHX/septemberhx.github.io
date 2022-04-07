@@ -17,7 +17,7 @@ image:
 > `dde-grand-search` 的插件机制可能会随着版本号变化而变动，使得本篇内容不再适用，此时需要按照本篇思路重新梳理插件开发方法。
 {: .prompt-info }
 
-## 插件文件目录
+## <font color=DodgerBlue>插件文件目录</font>
 
 按照软件设计的基本逻辑推断，再结合 `dde-dock` 中的插件机制，可以推测得到 `dde-grand-search` 有很大概率也是通过插件的方式进行后续功能增加的，尤其是目前 `dde-grand-search` 的搜索项目太少，参考 MacOS 的聚焦功能，能够想象到的后续拓展功能就包括：字典、剪贴板、邮件以及其他各种 Deepin 全家桶功能的集成。
 
@@ -44,7 +44,7 @@ InterfaceVersion=1.0
 
 显然，是通过配置文件告诉 `dde-grand-search` 对应插件的 `DBus Interface` 地址，然后统一调用的。`Mode` 还有其它模式，现在是搜索时触发模式，其它可以直接搜索源码，对应文件中有着注释。
 
-## 接口及数据格式
+## <font color=DodgerBlue>接口及数据格式</font>
 
 由上一节可知，实现插件需要两步：
 1. 配置文件告诉 `dde-grand-search` 插件的 `DBus` 接口
@@ -77,7 +77,7 @@ public Q_SLOTS: // METHODS
 > 以下列出的数据结构不全，仅列出了关键的部分，更为详细的需要翻阅 `dde-grand-search` 源码
 {: .prompt-info }
 
-### Search
+### <font color=DodgerBlue>Search</font>
 
 ```json
 {
@@ -110,11 +110,11 @@ public Q_SLOTS: // METHODS
 ```
 {: file='Search 接口输出'}
 
-### Stop
+### <font color=DodgerBlue>Stop</font>
 
 该部分此处不涉及，跳过。
 
-### Action
+### <font color=DodgerBlue>Action</font>
 
 ```json
 {
@@ -124,12 +124,12 @@ public Q_SLOTS: // METHODS
 ```
 {: file='Action 接口输入'}
 
-## 例子：`dde-top-panel`支持搜索菜单
+## <font color=DodgerBlue>例子：`dde-top-panel`支持搜索菜单</font>
 
 > 项目地址：[https://github.com/SeptemberHX/dde-top-panel/tree/dde-grand-search](https://github.com/SeptemberHX/dde-top-panel/tree/dde-grand-search)
 {: .prompt-tip}
 
-### 插件配置文件
+### <font color=DodgerBlue>插件配置文件</font>
 
 新建文件 `/usr/lib/x86_64-linux-gnu/dde-grand-search-daemon/plugins/searcher/com.deepin.dde-grand-search.dde-top-panel-setting.conf`{: .filepath}：
 
@@ -144,7 +144,7 @@ InterfaceVersion=1.0
 ```
 {: file='com.deepin.dde-grand-search.dde-top-panel-setting.conf'}
 
-### `DBus` 接口实现
+### <font color=DodgerBlue>`DBus` 接口实现</font>
 
 > `DBus` 注册等基础部分不包含在下面
 {: .prompt-warning}
@@ -215,6 +215,6 @@ bool DBusTopPanelService::Action(const QString json) {
 ```
 {: file='DBusTopPanelService.cpp'}
 
-### 实现效果
+### <font color=DodgerBlue>实现效果</font>
 
 ![dde-grand-search 搜索结果](/assets/img/dde-grand-search插件开发/example.png)

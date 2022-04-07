@@ -7,22 +7,23 @@ Date: 2022-02-23 17:52:57 +0800
 
 因为计算机是我每天学习工作的主力，有时候想在清理滴答清单任务的时候计时，但又发现滴答清单没有计时功能，所以想着后续有时间用滴答清单的 API 写个简单的计时功能，这样可以直接集成不用造 todolist 的轮子了。以下是在研究滴答清单网页版时发现的一些 API。目前官网有意愿放出 API 文档，但是目前只有一个简陋的旧版本文档，所以只能自己动手了。
 
-## 基本说明
+## <font color=DodgerBlue>基本说明</font>
 
-<font color=OrangeRed>非官方，随时可能会失效！</font>
+> 非官方，随时可能会失效！
+{: .prompt-warning}
 
-### 业务逻辑
+### <font color=DodgerBlue>业务逻辑</font>
 
 <img src="/assets/img/滴答清单网页版API记录/didaAPI.png" alt="业务逻辑关系" style="zoom:50%;" />
 
-### cookie 设置
+### <font color=DodgerBlue>cookie 设置</font>
 
 1. 请求头中 cookie 需要包含 t=xxxxx 字段，否则部分请求会出现 500 错误等
 2. xxxxx 为**登录**API返回的`token`字段的值
 
-## API 列表
+## <font color=DodgerBlue>API 列表</font>
 
-### SignOn
+### <font color=DodgerBlue>SignOn</font>
 
 * 地址：https://api.dida365.com/api/v2/user/signon?wc=true&remember=true
 
@@ -61,7 +62,7 @@ Date: 2022-02-23 17:52:57 +0800
   }
   ```
 
-### WebSocket
+### <font color=DodgerBlue>WebSocket</font>
 
 * 地址：wss://wss.dida365.com/web
 * 说明：接收来自服务器的信息，比如任务更新等
@@ -70,7 +71,7 @@ Date: 2022-02-23 17:52:57 +0800
   2. 需要定期向服务端发送心跳包：web版本是每9分钟发送 hello 字符串
   3. 服务端发生更新时，会主动发送一个 `checkPointID` 用于`BatchCheck`获取变化
 
-### PushRegister
+### <font color=DodgerBlue>PushRegister</font>
 
 * 地址：https://api.dida365.com/api/v2/push/register
 
@@ -85,7 +86,7 @@ Date: 2022-02-23 17:52:57 +0800
   }
   ```
 
-### BatchCheck
+### <font color=DodgerBlue>BatchCheck</font>
 
 * 地址：https://api.dida365.com/api/v2/batch/check/{checkPointID}
 
