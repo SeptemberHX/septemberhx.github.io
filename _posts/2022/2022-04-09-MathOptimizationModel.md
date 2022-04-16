@@ -37,6 +37,34 @@ $$
 
 where Z is the set of integers. The first stage variables are z and x, and the second stage variables are v. The first and second stage constraints which are independent of each other are represented by the first two inequalities, while the constraints which couple the first and second stages are represented by the third inequality[^seholff].
 
+### <font color=DodgerBlue>Mixed Integer Non-Linear Programming (MINLP)</font>
+
+#### <font color=DodgerBlue>定义</font>
+
+$$
+\begin{aligned}
+&\min &&f(x, y)\\
+&\text { s.t. } &&c_{i}(x, y)=0 \quad \forall i \in E\\
+& &&c_{i}(x, y) \leq 0 \quad \forall i \in I\\
+& &&x \quad \in X\\
+& &&y \quad \in Y \qquad\text { integer }
+\end{aligned}
+$$
+
+where each $c_i(x,y)$ is a mapping from $R^n$ to $R$, and $E$ and $I$ are index sets for equality and inequality constraints, respectively. Typically, the functions $f$ and $c_i$ have some smoothness properties, i.e., once or twice continuously differentiable[^neosGuide].
+
+Software developed for MINLP has generally followed two approaches[^neosGuide]:
+
+* **Outer Approximation/Generalized Bender's Decomposition**: These algorithms alternate between solving a mixed-integer LP master problem and nonlinear programming subproblems.
+* **Branch-and-Bound**: Branch-and-bound methods for mixed-integer LP can be extended to MINLP with a number of tricks added to improve their performance.
+
+#### <font color=DodgerBlue>实例</font>
+
+1. 将某个约束条件暂时不考虑的情况下，将约束中的变量分为互不干扰的两组，进而将原问题分解为主从问题[^Zhou2022TCC]。
+   > 优化问题建模是 MINLP，放宽约束进行了分解，但是之后疑似未还原约束或证明问题相等，使得提出的解法是具备前提条件的：We first consider the scenario that ESs do not cache the relevant services, and generate an initial computing strategy that satisfies the above constraints.
+
 ## <font color=DodgerBlue>引用</font>
 
 [^seholff]: Sehloff, David Karl, Maitreyee Marathe, Ashray Manur, and Giri Venkataramanan. "Self-sufficient participation in cloud-based demand response." IEEE Transactions on Cloud Computing (2021).
+[^Zhou2022TCC]: H. Zhou, Z. Zhang, D. Li and Z. Su, "Joint Optimization of Computing Offloading and Service Caching in Edge Computing-based Smart Grid," in IEEE Transactions on Cloud Computing, doi: 10.1109/TCC.2022.3163750.
+[^neosGuide]: https://neos-guide.org/content/mixed-integer-nonlinear-programming
