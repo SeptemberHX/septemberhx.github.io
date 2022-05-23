@@ -5,6 +5,9 @@ title: 滴答清单网页版 API 记录
 Date: 2022-02-23 17:52:57 +0800
 ---
 
+> 官方已更新 API 文档，直接查询官方即可：[TickTick Developer](https://developer.dida365.com/api#/openapi?id=authorization)
+{: .prompt-tip}
+
 因为计算机是我每天学习工作的主力，有时候想在清理滴答清单任务的时候计时，但又发现滴答清单没有计时功能，所以想着后续有时间用滴答清单的 API 写个简单的计时功能，这样可以直接集成不用造 todolist 的轮子了。以下是在研究滴答清单网页版时发现的一些 API。目前官网有意愿放出 API 文档，但是目前只有一个简陋的旧版本文档，所以只能自己动手了。
 
 ## <font color=DodgerBlue>基本说明</font>
