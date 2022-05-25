@@ -67,8 +67,14 @@ categories: [开发]
 | 获取指定 collection 中的文章 item 列表 | https://sync.readcube.com/collections/{collectionId}/items?sort%5B%5D=title,asc&size=50 | GET  | 一次最多拉取的 size 为50，返回值中有 scroll_id，想要获取后面的需要增加参数 scoll_id 继续调用该接口 |
 | 获取指定 item 的信息                   | https://sync.readcube.com/collections/{collectionId}/items/{itemId}                     | GET  | 上一个 item 列表中也包含具体 item 的信息，该部分应该主要用于同步单一 item 的信息                   |
 | 获取指定 item 的所有 annotation        | https://sync.readcube.com/collections/{collectionId}/items/{itemId}/annotations         | GET  | PDF 里做的标记、笔记等                                                                             |
+| 获取指定 item 的 metadata	| https://services.readcube.com/reader/metadata?doi=${doi} | GET | 格式化数据，包括引用、图片、作者信息等 |
 
 还有许多其它接口，个人需求原因不需要其他接口，因此需要自行研究。
+
+## 跳转
+
+1. 直接浏览器跳转到 PDF：`https://www.readcube.com/library/${collectionId}:${itemId}`
+2. 直接浏览器跳转到 annotation：`https://www.readcube.com/library/${collectionId}:${itemId}#annotation:${annotationId}`
 
 ## 更新
 
