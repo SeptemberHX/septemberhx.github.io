@@ -8,6 +8,8 @@ tags:
   - Kubernetes
 ---
 
+> 可以看看 [Kubernetes 实践指南](https://imroc.cc/kubernetes/)
+
 ## <font color=DodgerBlue>k8s 搭建流程</font>
 
 ### <font color=DodgerBlue>基础工具及 k8s 安装</font>
