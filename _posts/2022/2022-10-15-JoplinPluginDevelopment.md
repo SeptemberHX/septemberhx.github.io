@@ -34,12 +34,53 @@ categories: [手册, 开发]
 
 ![不同插件功能的作用区域](/assets/img/JoplinPluginDevelopment/pluginFunctionCategory.png)
 
+## 插件开发初始化
+
+### 初始化工具
+
+Joplin 提供了插件开发开始时的初始化工具 `generaor-joplin`。具体细节请参考官方网站：[Getting started with plugin development](https://joplinapp.org/api/get_started/plugins/)。
+
+1. 安装 `Node.js`
+2. `npm install -g yo generator-joplin`
+3. 在任意文件夹内，执行 `yo joplin` 完成初始化操作。
+
+### 文件结构
+
+里面有几个比较关键的文件：
+
+1. `plugin.config.json`：里面的 `extraScripts` 用于存放需要转换成 `*.js` 的 `*.ts` 以及 `*.tsx` 文件路径。**所有的路径都是相对于 `./src` 目录而言！
+   * 插件开发时，Joplin 的插件接口有时候需要直接提供 `*.js` 文件路径，但是一般情况下都是用 `*.ts` 或者 `*.tsx` 实现的，这种情况下就需要在这个文件中配置一下，不然编译时无法找到对应的 `*.js` 文件。其它 `*.ts` 文件之间相互引用的情况则无需在这个文件中配置。
+2. `./src/index.ts`：插件的入口，初始化后一般包含以下格式，只替换中间的部分即可。
+3. `./api`：这个是包含在初始文件中的、配合 Joplin 插件接口、函数、类等，最好**不要修改**。
+
+```typescript
+joplin.plugins.register({
+	onStart: async function() {
+      // 从这里开始写你的插件逻辑
+   }
+})
+```
+{: file='./src/index.ts'}
+
 ## Markdown 编辑器插件开发
 
-TODO
+截止到目前，Joplin 桌面端 的 Markdown 编辑器是基于 [Codemirror 5](https://codemirror.net/5/doc/manual.html) 开发的，目前还没有听到要切换到 [Codemirror 6](https://codemirror.net/) 的消息（Obsidian 等用的就是 v6，v6 相较于 v5 而言新增了一些功能，能够更方便的创建 decoration 等，实现 live preview 功能）。安卓端的 Joplin 使用的则是 v6 版本，但是目前安卓版不支持插件，因此这里仅讨论 v5 版本下的插件开发。
 
 ## Markdown 渲染插件开发
 
 ## 独立 Panel 插件开发
 
 ## 数据库相关开发
+
+## 注意事项
+
+### 第三方库的使用
+
+由于 Joplin 需要跨平台，它自带了一套自己的 `fs` 以及 `sqlite3` 库，需要通过以下方式引入包，不能直接 `require`：
+
+```typescript
+const fs = joplin.require('fs-extra')
+const sqlite3 = joplin.require('sqlite3')
+```
+
+这进一步导致所有依赖了 `fs` 以及 `sqlite3` 的库都无法正常使用！
