@@ -62,9 +62,57 @@ joplin.plugins.register({
 ```
 {: file='./src/index.ts'}
 
+### 注册插件
+
+```typescript
+await joplin.contentScripts.register(
+   ContentScriptType.MarkdownItPlugin,  // 或者是 ContentScriptType.CodeMirrorPlugin, 分别对应 markdown 渲染插件以及 markdown 编辑器插件
+   '唯一的插件ID',
+   './插件的路径/index.js'  // 这里的文件如果是用 ts 写的，那么需要再 plugin.config.json 文件中配置
+);
+```
+{: file='./src/index.ts'}
+
+更细致的内容请参考：[joplin开发文档](https://joplinapp.org/api/references/plugin_api/enums/contentscripttype.html)
+
+
 ## Markdown 编辑器插件开发
 
 截止到目前，Joplin 桌面端 的 Markdown 编辑器是基于 [Codemirror 5](https://codemirror.net/5/doc/manual.html) 开发的，目前还没有听到要切换到 [Codemirror 6](https://codemirror.net/) 的消息（Obsidian 等用的就是 v6，v6 相较于 v5 而言新增了一些功能，能够更方便的创建 decoration 等，实现 live preview 功能）。安卓端的 Joplin 使用的则是 v6 版本，但是目前安卓版不支持插件，因此这里仅讨论 v5 版本下的插件开发。
+
+`index.ts` 文件的主体内容：
+
+```typescript
+module.exports = {
+   default: function(context) {
+      return {
+         plugin: function(CodeMirror) {
+            // 插件逻辑部分
+
+            // 这里是通过 defineOption 方式实现 cm 插件
+            CodeMirror.defineOption('option的唯一ID', false, async function(cm, val, old) {
+               // xxx
+            }
+         },
+         codeMirrorResources: [
+            // cm5 自带的 addons，cm5 本身就自带了不少的插件，比如搜索高亮等
+            // 具体参考：https://codemirror.net/5/doc/manual.html#addons
+            // 下面的例子对应 mode/overlay.js 以及 hint/show-hint.js
+            'addon/mode/overlay',
+            'addon/hint/show-hint'
+         ],
+         codeMirrorOptions: {
+            // 必须在这里进行配置开启，否则无法生效
+            '对应上面 option的唯一ID': true,
+         },
+         assets: {
+            // 配置 css 样式文件。Joplin 中 cm5 不允许携带 *.js 脚本
+         },
+      }
+   }
+}
+```
+{: file='./src/具体插件功能/index.ts'}
 
 ## Markdown 渲染插件开发
 
