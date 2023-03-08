@@ -92,7 +92,14 @@ module.exports = {
             // 这里是通过 defineOption 方式实现 cm 插件
             CodeMirror.defineOption('option的唯一ID', false, async function(cm, val, old) {
                // xxx
-            }
+            };
+
+            // 与 defineOption 不同，这里更像是给 codemirror 对象新增了一个函数，defineExtension 之后，可以用 cm.extensionID(paras) 的方式调用了
+            // 示例见：https://github.com/CalebJohn/joplin-rich-markdown/blob/434520a5ba3ae4b345fbc88d2679969fcf910adf/src/richMarkdown.ts#L37
+            // 与此同时，也可以通过 Joplin 的 command 进行调用，见 https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/master/src/driver/codemirror/commands/index.ts 及 https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/dec1ba2055270c791bacc6df70011f75afa55879/src/index.ts#L86
+            CodeMirror.defineExtension('extension的唯一ID', function(paras) {
+               // xxx
+            });
          },
          codeMirrorResources: [
             // cm5 自带的 addons，cm5 本身就自带了不少的插件，比如搜索高亮等
@@ -113,6 +120,16 @@ module.exports = {
 }
 ```
 {: file='./src/具体插件功能/index.ts'}
+
+由于 Joplin 设计上不允许插件进程直接与界面交互，需要通过消息通信实现，codemirror 也是如此。见：[示例](https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/dec1ba2055270c791bacc6df70011f75afa55879/src/index.ts#L86)
+
+剩下的 codemirror 开发相关内容参见[官方文档](https://codemirror.net/5/doc/manual.html)，这里给出几个例子：
+1. [通过 command 从插件进程获取 codemirror 数据](https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/dec1ba2055270c791bacc6df70011f75afa55879/src/index.ts#L86)
+2. [为多行的特定格式内容分配特定 class，配合 css 实现丰富的渲染效果（如 Admonition）](https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/dec1ba2055270c791bacc6df70011f75afa55879/src/driver/codemirror/admonition/index.ts)
+3. [单行的特定格式分配特定 class，配合 css 实现丰富的渲染效果（如 `==高亮==`）](https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/dec1ba2055270c791bacc6df70011f75afa55879/src/driver/codemirror/admonition/index.ts)
+4. [将特定格式内容渲染成其他内容，如数学公式 `$latex$`](https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/dec1ba2055270c791bacc6df70011f75afa55879/src/driver/codemirror/linkFolder/mathMaker.ts)
+5. [选中文字后悬浮的工具栏](https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/dec1ba2055270c791bacc6df70011f75afa55879/src/driver/codemirror/formattingBar/formattingBart.ts)
+6. [编辑过程中动态校验列表编号并自动修正](https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/dec1ba2055270c791bacc6df70011f75afa55879/src/driver/codemirror/listNumber/index.ts)
 
 ## Markdown 渲染插件开发
 
