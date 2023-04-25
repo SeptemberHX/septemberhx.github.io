@@ -133,6 +133,34 @@ module.exports = {
 
 ## Markdown 渲染插件开发
 
+该类插件加载时，插件类型应设定为 `ContentScriptType.MarkdownItPlugin`，对应的插件 Index.ts 为：
+
+```typescript
+export default function (context) {
+    return {
+        plugin: function (markdownIt, _options) {
+            const pluginId = context.pluginId;
+
+            xxx(markdownIt, _options);
+        },
+        assets: function() {
+            return [
+                { name: 'xxx.css' }
+            ];
+        },
+    }
+}
+```
+{: file='./src/具体插件功能/index.ts'}
+
+上一小节是编辑器开发，是 Joplin 左侧的编辑部分，而渲染插件则是针对 markdown 渲染成 PDF 过程的，通过对 markdown 渲染规则/方法的修改、覆写、新增等操作，可以自由实现自己想要达到的效果，例如将 `- [ ] xxxx +tag1` 中的 `+tag1` 渲染上背景色等。
+
+Joplin 用的是 markdown-it 进行 markdown 渲染，所以其实就是 markdown-it 相关插件的开发。我并没有详细了解过 markdown-it 的工作原理，猜测应该是先由 `md.block.ruler` 对文本进行语法解析，将原始文本按照 markdown 的规则划分为多类 token，然后再由 `markdownIt.renderer.rules` 对标记后的 token 进行渲染，完成从文本到 HTML 的转换。该过程仅仅是猜测，欢迎指正。
+
+目前我用到的就两种：
+1. 针对 `md.block.ruler`，实现自定义的 token 识别，如 [Front Matter 的 token 识别](https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/master/src/driver/markdownItRuler/frontMatter/index.ts)
+2. 针对 `markdownIt.renderer.rules`，实现对现有 markdown 元素渲染过程的修改，例如：[伪代码块渲染](https://github.com/SeptemberHX/joplin-plugin-enhancement/blob/master/src/driver/markdownItRenderer/pseudocode/pseudocode.ts)
+
 ## 独立 Panel 插件开发
 
 ## 数据库相关开发
