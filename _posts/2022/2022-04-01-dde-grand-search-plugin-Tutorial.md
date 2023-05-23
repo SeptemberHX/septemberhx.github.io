@@ -8,7 +8,7 @@ categories: [开发, Deepin]
 toc: true
 comments: true
 image:
-  src: /assets/img/dde-grand-search插件开发/example.png
+  path: /assets/img/dde-grand-search插件开发/example.png
   alt: dde-top-panel 集成 dde-grand-search 效果图
 ---
 
