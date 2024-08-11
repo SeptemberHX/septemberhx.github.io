@@ -73,7 +73,7 @@ iface vmbr1 inet6 static
 
 以 Ubuntu 为例。首先需要将 vmbr1 网络添加到虚拟机中，之后修改配置文件：
 
-```conf
+```yaml
 # 网卡 ens19 替换成对应的名称
 network:
     ethernets:
@@ -92,6 +92,38 @@ network:
 
 由于没有配置 DHCP，每台虚拟机的 ipv4 和 ipv6 地址均需要手动配置才可以。
 
+#### 3. 宿主机配置 DHCP
+
+首先安装 dhcp-server：
+
+```shell
+sudo apt install isc-dhcp-server
+```
+
+其次编辑配置文件`/etc/dhcp/dhcpd.conf`：
+
+```conf
+subnet 192.168.1.0 netmask 255.255.255.0 {
+  range 192.168.1.100 192.168.1.200;
+  option routers 192.168.1.1;
+  option domain-name-servers 8.8.8.8, 8.8.4.4;
+  default-lease-time 600;
+  max-lease-time 7200;
+}
+```
+{: file='/etc/dhcp/dhcpd.conf'}
+
+同时修改配置文件`/etc/default/isc-dhcp-server`：
+```conf
+INTERFACESv4="vmbr1"
+```
+{: file='/etc/default/isc-dhcp-server'}
+
+#### 4. 简单一点的方法
+
+1. PVE 宿主机确保有两个网口，没有就加装一个
+2. 网口一直接接入光猫，自动获取 IPV6，所有需要 IPV6 公网的虚拟机全部添加该网卡
+3. 网口二直接接入家中的二级路由器/WIFI等，不需要公网的虚拟机添加该网卡即可
 
 ## 家庭服务器
 
